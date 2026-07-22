@@ -1,22 +1,17 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
-# image will be published to ghcr.io/<user>/<name>
-name: SilverNyx
-# description will be included in the image's metadata
-description: This is my personal OS image based on silverblue with added niri and noctalia.
+name: silverblue
+description: This is my personal OS image base on Ublue Fedora Silverblue
 
-# the base image to build on top of (FROM) and the version tag to use
 base-image: ghcr.io/ublue-os/silverblue-main
-image-version: 44 # latest is also supported if you want new updates ASAP
+image-version: 44
 
-# module configuration, executed in order
-# you can include multiple instances of the same module
 modules:
   - type: files
     files:
       - source: system
-        destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
-
+        destination: /
+  
   - type: dnf
     repos:
       copr:
@@ -24,36 +19,12 @@ modules:
         - lionheartp/Hyprland
         - yalter/niri
         - scottames/ghostty
-      files: 
+      files:
         - https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
-    install:
-      packages:
-        - noctalia-git
-        - niri
-        - ghostty
-        - bat
-        - chromium
-        - fastfetch
-        - git
-        - libvirt
-        - libvirt-client
-        - libvirt-daemon
-        - libvirt-daemon-driver-qemu
-        - libvirt-daemon-config-network
-        - neovim
-        - qemu-kvm
-        - sshfs
-        - starship
-        - vim
-        - virt-install
-        - virt-manager
-        - zsh
     remove:
       packages:
-        # example: removing firefox (in favor of the flatpak)
-        # "firefox" is the main package, "firefox-langpacks" is a dependency
         - firefox
-        - firefox-langpacks # also remove firefox dependency (not required for all packages, this is a special case)
+        - firefox-langpacks
         - gnome-software
         - gnome-initial-setup
         - gnome-tour
@@ -61,15 +32,53 @@ modules:
         - gnome-user-docs
         - gnome-remote-desktop
         - transmission-daemon
-
+    install:
+      packages:
+        - bat
+        - chezmoi
+        - chromium
+        - fastfetch
+        - fuse-libs
+        - git
+        - libvirt
+        - libvirt-client
+        - libvirt-daemon
+        - libvirt-daemon-driver-qemu
+        - libvirt-daemon-config-network
+        - lsd
+        - kitty
+        - mangohud
+        - mullvad-vpn
+        - neovim
+        - qemu-kvm
+        - signal-desktop
+        - sshfs
+        - starship
+        - steam
+        - vim
+        - virt-install
+        - virt-manager
+        - zsh
+        - noctalia-git
+        - niri
+        - ghostty
+  
   - type: default-flatpaks
     configurations:
-      - notify: true # Send notification after install/uninstall is finished (true/false)
-        scope: system
-        # If no repo information is specified, Flathub will be used by default
-        install: # system flatpaks we want all users to have and not remove
-          - org.mozilla.firefox
+    - scope: user
+      repo:
+        title: Flathub (user)
+    - scope: system
+      notify: false 
+      repo:
+        title: Flathub (system)
+      install: 
+          - com.github.johnfactotum.Foliate
+          - com.github.tchx84.Flatseal
           - com.mattjakeman.ExtensionManager
+          - com.rtosta.zapzap
+          - com.vscodium.codium
+          - com.saivert.pwvucontrol
           - dev.vencord.Vesktop
           - io.github.celluloid_player.Celluloid
           - io.github.kolunmi.Bazaar
@@ -89,12 +98,16 @@ modules:
           - org.gnome.TextEditor
           - org.gnome.Weather
           - org.gnucash.GnuCash
-      - scope: user # Also add Flathub user repo, but no user packages
-        title: Flathub (user)
-   - type: gnome-extensions
-        install:
-          - AppIndicator and KStatusNotifierItem Support
-          - Just Perfection
-          - User Themes
+          - org.libreoffice.LibreOffice
+          - org.mozilla.firefox
+          - org.mozilla.thunderbird
+          - org.remmina.Remmina
+
+  - type: gnome-extensions
+    install:
+      - AppIndicator and KStatusNotifierItem Support
+      - Just Perfection
+      - User Themes
+
   - type: initramfs
-  - type: signing # this sets up the proper policy & signing files for signed images to work fully
+  - type: signing
