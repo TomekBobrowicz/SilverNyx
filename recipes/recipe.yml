@@ -20,6 +20,7 @@ modules:
         - yalter/niri
         - scottames/ghostty
         - peterwu/iosevka
+        - arciel/packages
       files:
         - https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
     remove:
@@ -60,9 +61,10 @@ modules:
         - noctalia-git
         - niri
         - ghostty
-        - iosevka-aile
+        - iosevka-fonts
         - google-chrome-stable
         - papirus-icon-theme
+        - phinger-cursors
   
   - type: default-flatpaks
     configurations:
