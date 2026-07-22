@@ -90,7 +90,6 @@ modules:
           - org.gnome.Weather
           - org.gnucash.GnuCash
       - scope: user # Also add Flathub user repo, but no user packages
-            repo:
         title: Flathub (user)
    - type: gnome-extensions
         install:
