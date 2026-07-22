@@ -60,8 +60,9 @@ modules:
         - noctalia-git
         - niri
         - ghostty
-        - iosevka
+        - iosevka-aile
         - google-chrome-stable
+        - papirus-icon-theme
   
   - type: default-flatpaks
     configurations:
