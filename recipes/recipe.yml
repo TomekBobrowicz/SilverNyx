@@ -64,12 +64,15 @@ modules:
         - iosevka-fonts
         - papirus-icon-theme
         - phinger-cursors
+        - cargo
   
   - type: default-flatpaks
     configurations:
     - scope: user
       repo:
         title: Flathub (user)
+      install:
+          - com.google.Chrome
     - scope: system
       notify: false 
       repo:
