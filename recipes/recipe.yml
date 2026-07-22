@@ -19,6 +19,7 @@ modules:
         - lionheartp/Hyprland
         - yalter/niri
         - scottames/ghostty
+        - peterwu/iosevka
       files:
         - https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
     remove:
@@ -59,6 +60,8 @@ modules:
         - noctalia-git
         - niri
         - ghostty
+        - iosevka
+        - google-chrome-stable
   
   - type: default-flatpaks
     configurations:
