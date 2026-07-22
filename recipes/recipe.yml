@@ -62,7 +62,7 @@ modules:
         - niri
         - ghostty
         - iosevka-fonts
-        - google-chrome-stable
+        - google-chrome
         - papirus-icon-theme
         - phinger-cursors
   
