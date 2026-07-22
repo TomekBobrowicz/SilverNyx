@@ -3,11 +3,11 @@
 # image will be published to ghcr.io/<user>/<name>
 name: SilverNyx
 # description will be included in the image's metadata
-description: This is my personal OS image.
+description: This is my personal OS image based on silverblue with added niri and noctalia.
 
 # the base image to build on top of (FROM) and the version tag to use
 base-image: ghcr.io/ublue-os/silverblue-main
-image-version: 42 # latest is also supported if you want new updates ASAP
+image-version: 44 # latest is also supported if you want new updates ASAP
 
 # module configuration, executed in order
 # you can include multiple instances of the same module
@@ -21,16 +21,46 @@ modules:
     repos:
       copr:
         - atim/starship
+        - lionheartp/Hyprland
+        - yalter/niri
+        - scottames/ghostty
+      files: 
+        - https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
     install:
       packages:
-        - micro
+        - noctalia-git
+        - niri
+        - ghostty
+        - bat
+        - chromium
+        - fastfetch
+        - git
+        - libvirt
+        - libvirt-client
+        - libvirt-daemon
+        - libvirt-daemon-driver-qemu
+        - libvirt-daemon-config-network
+        - neovim
+        - qemu-kvm
+        - sshfs
         - starship
+        - vim
+        - virt-install
+        - virt-manager
+        - zsh
     remove:
       packages:
         # example: removing firefox (in favor of the flatpak)
         # "firefox" is the main package, "firefox-langpacks" is a dependency
         - firefox
         - firefox-langpacks # also remove firefox dependency (not required for all packages, this is a special case)
+        - gnome-software
+        - gnome-initial-setup
+        - gnome-tour
+        - gnome-classic-session
+        - gnome-user-docs
+        - gnome-remote-desktop
+        - transmission-daemon
 
   - type: default-flatpaks
     configurations:
@@ -39,7 +69,33 @@ modules:
         # If no repo information is specified, Flathub will be used by default
         install: # system flatpaks we want all users to have and not remove
           - org.mozilla.firefox
+          - com.mattjakeman.ExtensionManager
+          - dev.vencord.Vesktop
+          - io.github.celluloid_player.Celluloid
+          - io.github.kolunmi.Bazaar
+          - io.missioncenter.MissionCenter
+          - org.gnome.baobab
+          - org.gnome.Calculator
+          - org.gnome.Calendar
+          - org.gnome.Characters
+          - org.gnome.clocks
+          - org.gnome.Contacts
+          - org.gnome.Firmware
+          - org.gnome.font-viewer
+          - org.gnome.Logs
           - org.gnome.Loupe
+          - org.gnome.NautilusPreviewer
+          - org.gnome.Papers
+          - org.gnome.TextEditor
+          - org.gnome.Weather
+          - org.gnucash.GnuCash
       - scope: user # Also add Flathub user repo, but no user packages
-
+            repo:
+        title: Flathub (user)
+   - type: gnome-extensions
+        install:
+          - AppIndicator and KStatusNotifierItem Support
+          - Just Perfection
+          - User Themes
+  - type: initramfs
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
